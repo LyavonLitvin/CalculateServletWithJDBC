@@ -7,16 +7,16 @@ public class UserRole {
     public UserRole() {
     }
 
-    public UserRole(int idUserRole, String userRole) {
-        this.idUserRole = idUserRole;
+    public UserRole(int userRoleId, String userRole) {
+        this.idUserRole = userRoleId;
         this.userRole = userRole;
     }
 
-    public int getIdUserRole() {
+    public int getUserRoleId() {
         return idUserRole;
     }
 
-    public void setIdUserRole(int idUserRole) {
+    public void setUserRoleId(int idUserRole) {
         this.idUserRole = idUserRole;
     }
 

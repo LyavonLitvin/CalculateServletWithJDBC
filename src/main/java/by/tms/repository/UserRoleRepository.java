@@ -28,12 +28,12 @@ public class UserRoleRepository {
     }
 
     // запрос в базу данных на получения id роли пользователя
-    public int getUserRoleByIdUserRole(int idUserRole) {
+    public int getUserRoleByUserRoleId(int userRoleId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select user_roles.user_role_id from user_roles where user_role_id = ?");
-                preparedStatement.setInt(1, idUserRole);
+                preparedStatement.setInt(1, userRoleId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     return resultSet.getInt(1);
@@ -66,12 +66,12 @@ public class UserRoleRepository {
     }
 
     // запрос в базу данных на получение id роли по id пользователя
-    public int getUserRoleIdByUserId(int idUser) {
+    public int getUserRoleIdByUserId(int userId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("select user_role_id from users where id_user = ?;");
-                preparedStatement.setInt(1, idUser);
+                PreparedStatement preparedStatement = connection.prepareStatement("select user_role_id from users where user_id = ?;");
+                preparedStatement.setInt(1, userId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     return resultSet.getInt(1);
@@ -86,12 +86,12 @@ public class UserRoleRepository {
     }
 
     // запрос в базу данных на получения названия роли по id роли
-    public String getRoleNameFromUserRoleId(int idUserRole) {
+    public String getRoleNameFromUserRoleId(int userRoleId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select user_role from user_roles where user_role_id = ?;");
-                preparedStatement.setInt(1, idUserRole);
+                preparedStatement.setInt(1, userRoleId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     return resultSet.getString(1);

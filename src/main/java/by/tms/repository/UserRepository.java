@@ -1,6 +1,8 @@
 package by.tms.repository;
 
-import entity.User;
+
+
+import by.tms.entity.User;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
@@ -8,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class UserRepository {
-    final String url = "jdbc:mysql://localhost:3306/todolistdb?useUnicode=true&serverTimezone=UTC";
+    final String url = "jdbc:mysql://localhost:3306/calculatordb?useUnicode=true&serverTimezone=UTC";
     final String username = "root";
     final String password = "admin";
 

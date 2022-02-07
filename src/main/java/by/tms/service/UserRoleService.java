@@ -1,6 +1,6 @@
 package by.tms.service;
 
-import repository.UserRoleRepository;
+import by.tms.repository.UserRoleRepository;
 
 import java.util.HashMap;
 
@@ -11,17 +11,17 @@ public class UserRoleService {
 
     // получение id роли пользователя
     public int getIdUserRole(String login) {
-        return userRoleRepository.getIdUserRole(login);
+        return userRoleRepository.getUserRoleByUserLogin(login);
     }
 
     // получение id роли ползователя по id пользователя
     public int getIdUserRoleByIdUser(int idUser) {
-        return userRoleRepository.getIdUserRoleByIdUser(idUser);
+        return userRoleRepository.getUserRoleIdByUserId(idUser);
     }
 
     // получение роли пользователя
-    public String getUserRole(int idUserRole) {
-        return userRoleRepository.getRoleNameFromIdUserRole(idUserRole);
+    public String getUserRole(int userRoleId) {
+        return userRoleRepository.getRoleNameFromUserRoleId(userRoleId);
     }
 
     // получение списка роли пользователей
@@ -33,9 +33,9 @@ public class UserRoleService {
     }
 
     // проверка на соответсвие роли пользователя
-    public boolean isValid(int inputUserIdRole) {
+    public boolean isValid(int inputUserRoleId) {
         UserRoleRepository userRoleRepository = new UserRoleRepository();
-        int idFromBD = userRoleRepository.getIdUserRole(inputUserIdRole);
+        int idFromBD = userRoleRepository.getUserRoleByUserRoleId(inputUserRoleId);
         if (idFromBD == -1) {
             return false;
         } else {

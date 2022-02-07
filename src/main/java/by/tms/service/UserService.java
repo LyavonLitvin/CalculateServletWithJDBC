@@ -1,7 +1,7 @@
 package by.tms.service;
 
-import entity.User;
-import repository.UserRepository;
+import by.tms.entity.User;
+import by.tms.repository.UserRepository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -12,9 +12,9 @@ public class UserService {
     private User user;
 
     // добавление пользователя в базу данных
-    public boolean addUserToDB(int idUserRole, String userLogin, String userPassword, String userPhoneNumber,
-                               String userEmail, String userFirstName, String userLastName, int userAge) {
-        user = new User(idUserRole, userLogin, userPassword, userPhoneNumber, userEmail, userFirstName, userLastName, userAge, Timestamp.valueOf(LocalDateTime.now()));
+    public boolean addUserToDB(int userRoleID, String userName,String userLogin, String userPassword,
+                               String userEmail, String userSecretQuestion) {
+        user = new User(userRoleID, userName, userLogin, userPassword, userEmail, userSecretQuestion, Timestamp.valueOf(LocalDateTime.now()));
         int userResultAddFromBD = userRepository.addUser(user);
         if (userResultAddFromBD != -1) {
             user.setIdUser(userResultAddFromBD);
@@ -24,9 +24,9 @@ public class UserService {
     }
 
     // обновление пользователя в базу данных
-    public boolean updateUserToDB(int idUser, int idUserRole, String userLogin, String userPassword, String userPhoneNumber,
-                               String userEmail, String userFirstName, String userLastName, int userAge) {
-        user = new User(idUser, idUserRole, userLogin, userPassword, userPhoneNumber, userEmail, userFirstName, userLastName, userAge, Timestamp.valueOf(LocalDateTime.now()));
+    public boolean updateUserToDB(int userId, int userRoleID, String userName,String userLogin, String userPassword,
+                               String userEmail, String userSecretQuestion) {
+        user = new User(userId, userRoleID, userName, userLogin, userPassword, userEmail, userSecretQuestion, Timestamp.valueOf(LocalDateTime.now()));
         int userResultUpdateFromBD = userRepository.updateUser(user);
         if (userResultUpdateFromBD != -1) {
             user.setIdUser(userResultUpdateFromBD);

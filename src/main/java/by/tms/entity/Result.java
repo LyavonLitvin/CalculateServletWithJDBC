@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Result {
-    private int resultID;
-    private int resultCreatorID;
+    private int resultId;
+    private int resultCreatorId;
     private double firstNumber;
     private double secondNumber;
     private String operatorType;
@@ -16,9 +16,9 @@ public class Result {
     public Result() {
     }
 
-    public Result(int resultID, int resultCreatorID, double firstNumber, double secondNumber, String operatorType, double resultNumber, String userName, Timestamp resultUpdateDate) {
-        this.resultID = resultID;
-        this.resultCreatorID = resultCreatorID;
+    public Result(int resultId, int resultCreatorId, double firstNumber, double secondNumber, String operatorType, double resultNumber, String userName, Timestamp resultUpdateDate) {
+        this.resultId = resultId;
+        this.resultCreatorId = resultCreatorId;
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.operatorType = operatorType;
@@ -27,8 +27,8 @@ public class Result {
         this.resultUpdateDate = resultUpdateDate;
     }
 
-    public Result(int resultCreatorID, double firstNumber, double secondNumber, String operatorType, double resultNumber, String userName, Timestamp resultUpdateDate) {
-        this.resultCreatorID = resultCreatorID;
+    public Result(int resultCreatorId, double firstNumber, double secondNumber, String operatorType, double resultNumber, String userName, Timestamp resultUpdateDate) {
+        this.resultCreatorId = resultCreatorId;
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.operatorType = operatorType;
@@ -92,20 +92,20 @@ public class Result {
         this.userName = userName;
     }
 
-    public int getResultID() {
-        return resultID;
+    public int getResultId() {
+        return resultId;
     }
 
-    public void setResultID(int resultID) {
-        this.resultID = resultID;
+    public void setResultId(int resultId) {
+        this.resultId = resultId;
     }
 
-    public int getResultCreatorID() {
-        return resultCreatorID;
+    public int getResultCreatorId() {
+        return resultCreatorId;
     }
 
-    public void setResultCreatorID(int resultCreatorID) {
-        this.resultCreatorID = resultCreatorID;
+    public void setResultCreatorId(int resultCreatorId) {
+        this.resultCreatorId = resultCreatorId;
     }
 
     public Timestamp getResultUpdateDate() {
