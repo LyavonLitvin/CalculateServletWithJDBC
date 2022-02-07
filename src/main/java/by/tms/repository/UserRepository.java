@@ -14,6 +14,7 @@ public class UserRepository {
     final String username = "root";
     final String password = "admin";
 
+
     // запрос в базу данных на добавление пользователя
     public int addUser(User user) {
         try {
