@@ -1,4 +1,4 @@
-package by.tms.repository;
+package by.tms.storage;
 
 
 import by.tms.entity.Result;
@@ -8,7 +8,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class ResultRepository {
+public class InMySQLResultStorage {
     final String url = "jdbc:mysql://localhost:3306/calculatordb?useUnicode=true&serverTimezone=UTC";
     final String username = "root";
     final String password = "admin";
@@ -35,7 +35,7 @@ public class ResultRepository {
     }
 
     // запрос в базу данных получение списка результатов
-    public ArrayList<String> getListResultsFromUserId(int userId) { // Просмотр результатов назначенных пользователю
+    public ArrayList<String> getListResultsFromUserId(String userLogin) { // Просмотр результатов назначенных пользователю
         ArrayList<String> listResults = new ArrayList<>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -43,7 +43,7 @@ public class ResultRepository {
                 PreparedStatement preparedStatement = connection.prepareStatement("" +
                         "select result_id, first_number, operator_type, second_number, result_number, result_update_date  from results " +
                         "where results.result_creator_id = ? order by result_id;");
-                preparedStatement.setInt(1, userId);
+                preparedStatement.setString(1, userLogin);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                     listResults.add("id - " + resultSet.getInt(1) +

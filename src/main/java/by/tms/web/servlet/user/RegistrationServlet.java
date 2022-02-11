@@ -29,7 +29,7 @@ public class RegistrationServlet extends HttpServlet {
         String password = req.getParameter("password");
         session.setAttribute("username", userName);
         User user = new User(name, userName, password, session.getId());
-        if (inMemoryUsersStorageService.saveUser(user)) {
+        if (inMemoryUsersStorageService.addUser(user)) {
             session.setAttribute("messageErrorRegistration","Registration was successful.");
             req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
         } else {

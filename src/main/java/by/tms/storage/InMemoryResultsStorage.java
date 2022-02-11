@@ -1,4 +1,4 @@
-package by.tms.repository;
+package by.tms.storage;
 
 import by.tms.entity.Result;
 
@@ -21,18 +21,18 @@ public class InMemoryResultsStorage {
 
     private final static  ArrayList<Result> results = new ArrayList<>();
 
-    public void saveResult(Result result) {
+    public void addResult(Result result) {
         results.add(result);
     }
 
-    public ArrayList<Result> getResults(String username) {
+    public ArrayList<Result> getAll(String username) {
         ArrayList<Result> selectedResult = results.stream()
                 .filter(result -> result.getUserName() == username)
                 .collect(Collectors.toCollection(ArrayList::new));
         return selectedResult;
     }
 
-    public void delResults() {
+    public void deleteAll() {
         results.clear();
     }
 }

@@ -26,7 +26,7 @@ public class RegistrationFilter extends HttpFilter {
             } else if (name.isEmpty() || userName.isEmpty() || password.isEmpty()) {
                 req.setAttribute("messageErrorRegistration", Constants.MSG_ERROR_NAME_USERNAME_PASSWORD_EMPTY);
                 req.getServletContext().getRequestDispatcher(Constants.REGISTRATION_LINK_JSP).forward(req, resp);
-            } else if (inMemoryUsersStorageService.checkUser(userName)) {
+            } else if (inMemoryUsersStorageService.checkByUserLogin(userName)) {
                 req.setAttribute("messageErrorRegistration", Constants.MSG_ERROR_USER_HAS_FOUND);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
             }

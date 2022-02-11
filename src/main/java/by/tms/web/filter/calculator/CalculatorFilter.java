@@ -26,7 +26,7 @@ public class CalculatorFilter extends HttpFilter {
             if (session.getAttribute("username") == null) {
                 req.setAttribute("messageErrorCalculator", Constants.MSG_ERROR_NOT_AUTHORIZED);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
-            } else if (!inMemoryUsersStorageService.checkUser((String) session.getAttribute("username"))) {
+            } else if (!inMemoryUsersStorageService.checkByUserLogin((String) session.getAttribute("username"))) {
                 req.setAttribute("messageErrorCalculator", Constants.MSG_ERROR_NOT_AUTHORIZED);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
             } else {

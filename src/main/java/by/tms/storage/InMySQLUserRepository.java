@@ -1,4 +1,4 @@
-package by.tms.repository;
+package by.tms.storage;
 
 
 
@@ -9,7 +9,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class UserRepository {
+public class InMySQLUserRepository {
     final String url = "jdbc:mysql://localhost:3306/calculatordb?useUnicode=true&serverTimezone=UTC";
     final String username = "root";
     final String password = "admin";
@@ -20,24 +20,22 @@ public class UserRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("insert into users (id_user_role, user_login, user_password, user_phone_number, user_email," +
-                        " user_first_name, user_last_name, user_age, user_date_update) values (?,?,?,?,?,?,?,?,?)");
-                preparedStatement.setInt(1, user.getIdUserRole());
-                preparedStatement.setString(2, user.getUserLogin());
-                preparedStatement.setString(3, user.getUserPassword());
-                preparedStatement.setString(4, user.getUserPhoneNumber());
-                preparedStatement.setString(5, user.getUserEmail());
-                preparedStatement.setString(6, user.getUserFirstName());
-                preparedStatement.setString(7, user.getUserLastName());
-                preparedStatement.setInt(8, user.getUserAge());
-                preparedStatement.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now()));
+                PreparedStatement preparedStatement = connection.prepareStatement("insert into users (user_role_id, user_name, user_login, user_password, user_email," +
+                        " user_secret_qestion, user_date_update) values (?,?,?,?,?,?,?)");
+                preparedStatement.setInt(1, user.getUserRoleId());
+                preparedStatement.setString(2, user.getName());
+                preparedStatement.setString(3, user.getLogin());
+                preparedStatement.setString(4, user.getPassword());
+                preparedStatement.setString(5, user.getEmail());
+                preparedStatement.setString(6, user.getSecretQuestion());
+                preparedStatement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
                 preparedStatement.execute();
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
 
-        int userID = getIdUser(user);
+        int userID = getUserId(user);
         if (userID != -1) {
             return userID;
         } else {
@@ -50,72 +48,22 @@ public class UserRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("update users set id_user_role = ?, user_login = ?, user_password = ?, user_phone_number = ?, user_email = ?," +
-                        " user_first_name = ?, user_last_name = ?, user_age = ?, user_date_update =? where id_user = ?;");
-                preparedStatement.setInt(1, user.getIdUserRole());
-                preparedStatement.setString(2, user.getUserLogin());
-                preparedStatement.setString(3, user.getUserPassword());
-                preparedStatement.setString(4, user.getUserPhoneNumber());
-                preparedStatement.setString(5, user.getUserEmail());
-                preparedStatement.setString(6, user.getUserFirstName());
-                preparedStatement.setString(7, user.getUserLastName());
-                preparedStatement.setInt(8, user.getUserAge());
-                preparedStatement.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now()));
-                preparedStatement.setInt(10, user.getIdUser());
+                PreparedStatement preparedStatement = connection.prepareStatement("update users set user_role_id = ?, user_name = ?, user_password = ?, user_email = ?," +
+                        " user_secret_question = ?, user_date_update =? where user_id = ?;");
+                preparedStatement.setInt(1, user.getUserRoleId());
+                preparedStatement.setString(2, user.getName());
+                preparedStatement.setString(4, user.getPassword());
+                preparedStatement.setString(5, user.getEmail());
+                preparedStatement.setString(6, user.getSecretQuestion());
+                preparedStatement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+                preparedStatement.setString(3, user.getLogin());
                 preparedStatement.execute();
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
 
-        int userID = getIdUser(user);
-        if (userID != -1) {
-            return userID;
-        } else {
-            return -1;
-        }
-    }
-
-    // запрос в базу данных на обновление логина пользователя
-    public int updateUserLogin(User user) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
-            try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("update users set user_login = ?, user_date_update = ? where id_user = ?;");
-                preparedStatement.setString(1, user.getUserLogin());
-                preparedStatement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
-                preparedStatement.setInt(3, user.getIdUser());
-                preparedStatement.execute();
-            }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-
-        // -1 - если юзер не обновился, значит и не найден в БД, иначе возврат id
-        int userID = getIdUser(user.getUserLogin());
-        if (userID != -1) {
-            return userID;
-        } else {
-            return -1;
-        }
-    }
-
-    // запрос в базу данных на обновление логина пользователя по id пользователя
-    public int updateUserLogin(int idUser, String newLogin) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
-            try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("update users set user_login = ?, user_date_update = ? where id_user = ?;");
-                preparedStatement.setString(1, newLogin);
-                preparedStatement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
-                preparedStatement.setInt(3, idUser);
-                preparedStatement.execute();
-            }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-
-        int userID = getIdUser(idUser);
+        int userID = getUserId(user);
         if (userID != -1) {
             return userID;
         } else {
@@ -124,47 +72,25 @@ public class UserRepository {
     }
 
     // запрос в базу данных на обновление пароля пользователя по id пользователя
-    public int updateUserPassword(int idUser, String newUserPassword) {
+    public int updateUserPassword(int userId, String newUserPassword) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("update users set user_password = ?, user_date_update = ? where id_user = ?;");
+                PreparedStatement preparedStatement = connection.prepareStatement("update users set user_password = ?, user_date_update = ? where user_id = ?;");
                 preparedStatement.setString(1, newUserPassword);
                 preparedStatement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
-                preparedStatement.setInt(3, idUser);
+                preparedStatement.setInt(3, userId);
                 preparedStatement.execute();
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
 
-        int userID = getIdUser(idUser);
-        if (userID != -1) {
-            return userID;
+        int userIdTemp = getUserId(userId);
+        if (userIdTemp != -1) {
+            return userIdTemp;
         } else {
             return -1;
-        }
-    }
-
-    // запрос в базу данных на обновление роли пользователя по id пользователя
-    public boolean updateUserRole(int idUser, int newIdUserRole) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
-            try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("update users set id_user_role = ?, user_date_update = ? where id_user = ?;");
-                preparedStatement.setInt(1, newIdUserRole);
-                preparedStatement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
-                preparedStatement.setInt(3, idUser);
-                preparedStatement.execute();
-            }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-
-        if (checkUserRole(idUser, newIdUserRole)) {
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -173,7 +99,7 @@ public class UserRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("delete from users where id_user = ?");
+                PreparedStatement preparedStatement = connection.prepareStatement("delete from users where user_id = ?");
                 preparedStatement.setInt(1, idUser);
                 preparedStatement.execute();
             }
@@ -181,7 +107,7 @@ public class UserRepository {
             e.printStackTrace();
         }
 
-        int userID = getIdUser(idUser);
+        int userID = getUserId(idUser);
         if (userID == -1) {
             return true;
         } else {
@@ -190,12 +116,12 @@ public class UserRepository {
     }
 
     // запрос в базу данных на получения id пользователя по логину пользователя
-    public int getIdUser(User user) {
+    public int getUserId(User user) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("select users.id_user from users where user_login = ?");
-                preparedStatement.setString(1, user.getUserLogin());
+                PreparedStatement preparedStatement = connection.prepareStatement("select users.user_id from users where user_login = ?");
+                preparedStatement.setString(1, user.getLogin());
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     int id = resultSet.getInt(1);
@@ -209,11 +135,11 @@ public class UserRepository {
     }
 
     // запрос в базу данных на получения id пользователя по логину пользователя
-    public int getIdUser(String login) {
+    public int getUserId(String login) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("select users.id_user from users where user_login = ?");
+                PreparedStatement preparedStatement = connection.prepareStatement("select users.user_id from users where user_login = ?");
                 preparedStatement.setString(1, login);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
@@ -228,12 +154,12 @@ public class UserRepository {
     }
 
     // запрос в базу данных на получения id пользователя по id пользователя
-    public int getIdUser(int IdUser) {
+    public int getUserId(int userId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("select users.id_user from users where id_user = ?");
-                preparedStatement.setInt(1, IdUser);
+                PreparedStatement preparedStatement = connection.prepareStatement("select users.user_id from users where user_id = ?");
+                preparedStatement.setInt(1, userId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     int id = resultSet.getInt(1);
@@ -247,17 +173,17 @@ public class UserRepository {
     }
 
     // запрос в базу данных на проверку роли пользователя по id пользователя и по id роли
-    public boolean checkUserRole(int idUser, int idUserRole) {
+    public boolean checkUserRole(String userLogin, int userRoleId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("select id_user, id_user_role from users where id_user = ?;");
-                preparedStatement.setInt(1, idUser);
+                PreparedStatement preparedStatement = connection.prepareStatement("select user_login, user_role_id from users where user_id = ?;");
+                preparedStatement.setString(1, userLogin);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
-                    int idUserDB = resultSet.getInt(1);
+                    String idUserDB = resultSet.getString(1);
                     int idUserRoleDB = resultSet.getInt(2);
-                    if (idUser == idUserDB && idUserRole == idUserRoleDB)
+                    if (userLogin == idUserDB && userRoleId == idUserRoleDB)
                         return true;
                 }
             }
@@ -289,28 +215,26 @@ public class UserRepository {
     }
 
     // запрос в базу данных на получения информации о пользователе
-    public String getUserInfo(int idUser) {
+    public String getUserInfo(int userId) {
         String userInfo = "";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("" +
-                        "select users.id_user, user_roles.user_role, users.user_login, users.user_password, user_phone_number, user_email, user_first_name, user_last_name, user_age, user_date_update from users " +
-                        "inner join user_roles on users.id_user_role = user_roles.id_user_role where users.id_user = ?;");
-                preparedStatement.setInt(1, idUser);
+                        "select users.user_id, user_roles.user_role, users.user_name, users.user_login, users.user_password, user_email, user_secret_question, user_date_update from users " +
+                        "inner join user_roles on users.user_role_id = user_roles.user_role_id where users.user_id = ?;");
+                preparedStatement.setInt(1, userId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     userInfo = "id - " + resultSet.getInt(1) +
                             ", роль пользователя - " + resultSet.getString(2) +
-                            ", логин - " + resultSet.getString(3) +
-                            ", пароль - " + resultSet.getString(4) +
-                            ", телефон - " + resultSet.getString(5) +
+                            ", имя - " + resultSet.getString(3) +
+                            ", логин - " + resultSet.getString(4) +
+                            ", пароль - " + resultSet.getString(5) +
                             ", @mail - " + resultSet.getString(6) +
-                            ", имя - " + resultSet.getString(7) +
-                            ", фамилия - " + resultSet.getString(8) +
-                            ", возраст - " + resultSet.getInt(9) +
-                            ", дата последнего обновления карточки - " + resultSet.getDate(10);
+                            ", секретный вопрос - " + resultSet.getString(7) +
+                            ", дата последнего обновления карточки - " + resultSet.getDate(8);
                 }
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
@@ -320,42 +244,38 @@ public class UserRepository {
     }
 
     // запрос в базу данных на получения информации об авторизованном пользователе
-    public User getAuthorizedUserInfo(int idUser) {
+    public User getAuthorizedUserInfo(int userId) {
         int tempIdUser = -1;
         int tempIdUserRole = -1;
         String tempIdUserLogin = "";
         String tempIdUserPassword = "";
-        String tempUserPhoneNumber = "";
+        String tempUserName = "";
         String tempUserEmail = "";
-        String tempUserFirstName = "";
-        String tempUserLastName = "";
-        int tempUserAge = 0;
+        String tempUserSecretQestion = "";
         Timestamp tempUserDateUpdate = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("" +
-                        "select users.id_user, users.id_user_role, users.user_login, users.user_password, user_phone_number, user_email, user_first_name, user_last_name, user_age, user_date_update from users " +
-                        " where users.id_user = ?;");
-                preparedStatement.setInt(1, idUser);
+                        "select user_id, user_role_id, user_name, user_login, user_password, user_phone_number, user_email, user_secret_question, user_date_update from users " +
+                        " where user_id = ?;");
+                preparedStatement.setInt(1, userId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     tempIdUser = resultSet.getInt(1);
                     tempIdUserRole = resultSet.getInt(2);
-                    tempIdUserLogin = resultSet.getString(3);
-                    tempIdUserPassword = resultSet.getString(4);
-                    tempUserPhoneNumber = resultSet.getString(5);
+                    tempUserName = resultSet.getString(3);
+                    tempIdUserLogin = resultSet.getString(4);
+                    tempIdUserPassword = resultSet.getString(5);
                     tempUserEmail = resultSet.getString(6);
-                    tempUserFirstName = resultSet.getString(7);
-                    tempUserLastName = resultSet.getString(8);
-                    tempUserAge = resultSet.getInt(9);
-                    tempUserDateUpdate = resultSet.getTimestamp(10);
+                    tempUserSecretQestion = resultSet.getString(7);
+                    tempUserDateUpdate = resultSet.getTimestamp(8);
                 }
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-        return new User(tempIdUser, tempIdUserRole, tempIdUserLogin, tempIdUserPassword, tempUserPhoneNumber, tempUserEmail, tempUserFirstName, tempUserLastName, tempUserAge, tempUserDateUpdate);
+        return new User(tempIdUser, tempIdUserRole, tempUserName, tempIdUserLogin, tempIdUserPassword, tempUserEmail, tempUserSecretQestion, tempUserDateUpdate);
     }
 
     // запрос в базу данных на получения информации о всех пользователях
@@ -366,20 +286,18 @@ public class UserRepository {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("" +
-                        "select users.id_user, user_roles.user_role, users.user_login, users.user_password, user_phone_number, user_email, user_first_name, user_last_name, user_age, user_date_update from users " +
-                        "inner join user_roles on users.id_user_role = user_roles.id_user_role order by users.id_user;");
+                        "select user_id, user_roles.user_role, user_name, user_login, user_password, user_email, user_secret_question, user_date_update from users " +
+                        "inner join user_roles on users.user_role_id = user_roles.user_role_id order by users.user_id;");
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                     listUsersInfo.add("id - " + resultSet.getInt(1) +
                             ", роль пользователя - " + resultSet.getString(2) +
-                            ", логин - " + resultSet.getString(3) +
-                            ", пароль - " + resultSet.getString(4) +
-                            ", телефон - " + resultSet.getString(5) +
+                            ", имя - " + resultSet.getString(3) +
+                            ", логин - " + resultSet.getString(4) +
+                            ", пароль - " + resultSet.getString(5) +
                             ", @mail - " + resultSet.getString(6) +
-                            ", имя - " + resultSet.getString(7) +
-                            ", фамилия - " + resultSet.getString(8) +
-                            ", возраст - " + resultSet.getString(9) +
-                            ", дата последнего обновления карточки - " + resultSet.getDate(10));
+                            ", секретный вопрос - " + resultSet.getString(7) +
+                            ", дата последнего обновления карточки - " + resultSet.getDate(8));
                 }
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {

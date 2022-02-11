@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 public class User {
 
     private int idUser;
-    private int idUserRole;
+    private int userRoleId;
     private String name;
     private String login;
     private String password;
@@ -15,8 +15,8 @@ public class User {
     private Timestamp userUpdateDate;
     private String sessionID;
 
-    public User(int idUserRole, String name, String login, String password, String email, String secretQuestion, Timestamp userUpdateDate, String sessionID) {
-        this.idUserRole = idUserRole;
+    public User(int userRoleId, String name, String login, String password, String email, String secretQuestion, Timestamp userUpdateDate, String sessionID) {
+        this.userRoleId = userRoleId;
         this.name = name;
         this.login = login;
         this.password = password;
@@ -26,8 +26,8 @@ public class User {
         this.sessionID = sessionID;
     }
 
-    public User(int idUserRole, String name, String login, String password, String email, String secretQuestion, Timestamp userUpdateDate) {
-        this.idUserRole = idUserRole;
+    public User(int userRoleId, String name, String login, String password, String email, String secretQuestion, Timestamp userUpdateDate) {
+        this.userRoleId = userRoleId;
         this.name = name;
         this.login = login;
         this.password = password;
@@ -35,9 +35,9 @@ public class User {
         this.secretQuestion = secretQuestion;
         this.userUpdateDate = userUpdateDate;
     }
-    public User(int idUser, int idUserRole, String name, String login, String password, String email, String secretQuestion, Timestamp userUpdateDate) {
+    public User(int idUser, int userRoleId, String name, String login, String password, String email, String secretQuestion, Timestamp userUpdateDate) {
         this.idUser = idUser;
-        this.idUserRole = idUserRole;
+        this.userRoleId = userRoleId;
         this.name = name;
         this.login = login;
         this.password = password;
@@ -45,9 +45,9 @@ public class User {
         this.secretQuestion = secretQuestion;
         this.userUpdateDate = userUpdateDate;
     }
-    public User(int idUser, int idUserRole, String name, String login, String password, String email, String secretQuestion, Timestamp userUpdateDate, String sessionID) {
+    public User(int idUser, int userRoleId, String name, String login, String password, String email, String secretQuestion, Timestamp userUpdateDate, String sessionID) {
         this.idUser = idUser;
-        this.idUserRole = idUserRole;
+        this.userRoleId = userRoleId;
         this.name = name;
         this.login = login;
         this.password = password;
@@ -114,12 +114,12 @@ public class User {
         this.idUser = idUser;
     }
 
-    public int getIdUserRole() {
-        return idUserRole;
+    public int getUserRoleId() {
+        return userRoleId;
     }
 
-    public void setIdUserRole(int idUserRole) {
-        this.idUserRole = idUserRole;
+    public void setUserRoleId(int userRoleId) {
+        this.userRoleId = userRoleId;
     }
 
     public Timestamp getUserUpdateDate() {

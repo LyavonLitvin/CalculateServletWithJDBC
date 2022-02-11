@@ -1,7 +1,7 @@
 package by.tms.service;
 
 import by.tms.entity.Result;
-import by.tms.repository.InMemoryResultsStorage;
+import by.tms.storage.InMemoryResultsStorage;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -26,7 +26,7 @@ public class CalculatorService {
             resultNumber = divide(result.getFirstNumber(), result.getSecondNumber());
         }
         result.setResultNumber(resultNumber);
-        saveResult(result);
+        addResult(result);
         return result;
     }
 
@@ -46,23 +46,23 @@ public class CalculatorService {
         return a + b;
     }
 
-    public void saveResult(Result result) {
-        inMemoryResultsStorage.saveResult(result);
+    public void addResult(Result result) {
+        inMemoryResultsStorage.addResult(result);
     }
 
-    public ArrayList<String> getResults(String username) {
-        ArrayList<String> selectedResult = inMemoryResultsStorage.getResults(username).stream()
+    public ArrayList<String> getResults(String userLogin) {
+        ArrayList<String> selectedResult = inMemoryResultsStorage.getAll(userLogin).stream()
                 .map(Result::toString)
                 .collect(Collectors.toCollection(ArrayList::new));
         return selectedResult;
     }
 
     public ArrayList<Result> getResultsToSOUT(String username) {
-        return inMemoryResultsStorage.getResults(username);
+        return inMemoryResultsStorage.getAll(username);
     }
 
     public void deleteResults() {
-        inMemoryResultsStorage.delResults();
+        inMemoryResultsStorage.deleteAll();
     }
 }
 

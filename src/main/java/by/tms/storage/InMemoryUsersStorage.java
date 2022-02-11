@@ -1,4 +1,4 @@
-package by.tms.repository;
+package by.tms.storage;
 
 import by.tms.entity.User;
 
@@ -21,11 +21,11 @@ public class InMemoryUsersStorage {
     }
 
 
-    public void saveUser(User user) {
+    public void addUser(User user) {
         users.add(user);
     }
 
-    public User getByUserName(String username) {
+    public User getOneByUserName(String username) {
         for (User user : users) {
             if (user.getLogin().equals(username)) {
                 return user;
@@ -34,7 +34,7 @@ public class InMemoryUsersStorage {
         return null;
     }
 
-    public boolean checkByUserName(String username) {
+    public boolean checkOneByUserName(String username) {
         for (User user : users) {
             if (user.getLogin().equals(username)) {
                 return true;
@@ -43,11 +43,11 @@ public class InMemoryUsersStorage {
         return false;
     }
 
-    public ArrayList<User> getUsers() {
+    public ArrayList<User> getAll() {
         return users;
     }
 
-    public void deleteUsers() {
+    public void deleteAll() {
         users.clear();
     }
 }

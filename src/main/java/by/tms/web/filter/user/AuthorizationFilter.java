@@ -25,7 +25,7 @@ public class AuthorizationFilter extends HttpFilter {
             } else if (userName.isEmpty() || password.isEmpty()) {
                 req.setAttribute("messageErrorAuthorization", Constants.MSG_ERROR_USERNAME_OR_PASSWORD_EMPTY);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
-            } else if (!inMemoryUsersStorageService.checkUser(userName)) {
+            } else if (!inMemoryUsersStorageService.checkByUserLogin(userName)) {
                 req.setAttribute("messageErrorAuthorization", Constants.MSG_ERROR_USER_NOT_FOUND);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
             } else if (!inMemoryUsersStorageService.checkUserByUsernamePassword(userName, password)) {
