@@ -1,4 +1,4 @@
-package by.tms.storage;
+package by.tms.dao;
 
 
 
@@ -9,7 +9,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class InMySQLUserRepository {
+public class InMySQLUserDAO {
     final String url = "jdbc:mysql://localhost:3306/calculatordb?useUnicode=true&serverTimezone=UTC";
     final String username = "root";
     final String password = "admin";

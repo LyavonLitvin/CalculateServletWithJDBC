@@ -50,15 +50,15 @@ public class CalculatorService {
         inMemoryResultsStorage.addResult(result);
     }
 
-    public ArrayList<String> getResults(String userLogin) {
-        ArrayList<String> selectedResult = inMemoryResultsStorage.getAll(userLogin).stream()
+    public ArrayList<String> getResults(int userId) {
+        ArrayList<String> selectedResult = inMemoryResultsStorage.getAll(userId).stream()
                 .map(Result::toString)
                 .collect(Collectors.toCollection(ArrayList::new));
         return selectedResult;
     }
 
-    public ArrayList<Result> getResultsToSOUT(String username) {
-        return inMemoryResultsStorage.getAll(username);
+    public ArrayList<Result> getResultsToSOUT(int userId) {
+        return inMemoryResultsStorage.getAll(userId);
     }
 
     public void deleteResults() {

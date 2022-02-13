@@ -1,17 +1,50 @@
 package by.tms.service;
 
 import by.tms.entity.Result;
-import by.tms.storage.InMySQLResultStorage;
+import by.tms.dao.InMySQLResultDAO;
 
 import java.util.ArrayList;
 
 public class ResultService {
-    private InMySQLResultStorage inMySQLResultStorage = new InMySQLResultStorage();
+    private InMySQLResultDAO inMySQLResultDAO = new InMySQLResultDAO();
     private Result result;
 
+    public Result calculation(Result result) {
+        double resultNumber = 0;
+        String controlLetter = result.getOperatorType();
+        if (controlLetter.equals("+")) {
+            resultNumber = sum(result.getFirstNumber(), result.getSecondNumber());
+        } else if (controlLetter.equals("-")) {
+            resultNumber = diff(result.getFirstNumber(), result.getSecondNumber());
+        } else if (controlLetter.equals("*")) {
+            resultNumber = multiple(result.getFirstNumber(), result.getSecondNumber());
+        } else if (controlLetter.equals("/")) {
+            resultNumber = divide(result.getFirstNumber(), result.getSecondNumber());
+        }
+        result.setResultNumber(resultNumber);
+        addResult(result);
+        return result;
+    }
+
+    public double diff(double a, double b) {
+        return (a - b);
+    }
+
+    public double divide(double a, double b) {
+        return a / b;
+    }
+
+    public double multiple(double a, double b) {
+        return a * b;
+    }
+
+    public double sum(double a, double b) {
+        return a + b;
+    }
+
     // получение списка результатов
-    public ArrayList<String> getResults(String userLogin) {
-        ArrayList<String> listUserResults = inMySQLResultStorage.getListResultsFromUserId(userLogin);
+    public ArrayList<String> getResults(int userId) {
+        ArrayList<String> listUserResults = inMySQLResultDAO.getListResultsFromUserId(userId);
         return listUserResults;
     }
 
@@ -34,7 +67,7 @@ public class ResultService {
 
     // добавление результата в БД
     public boolean addResult(Result result) {
-        return inMySQLResultStorage.addResult(result);
+        return inMySQLResultDAO.addResult(result);
     }
 
 //    // удаление результата

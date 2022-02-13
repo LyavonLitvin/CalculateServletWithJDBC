@@ -10,46 +10,46 @@ public class Result {
     private double secondNumber;
     private String operatorType;
     private double resultNumber;
-    private String userName;
+    private int userId;
     private Timestamp resultUpdateDate;
 
     public Result() {
     }
 
-    public Result(int resultId, int resultCreatorId, double firstNumber, double secondNumber, String operatorType, double resultNumber, String userName, Timestamp resultUpdateDate) {
+    public Result(int resultId, int resultCreatorId, double firstNumber, double secondNumber, String operatorType, double resultNumber, int userId, Timestamp resultUpdateDate) {
         this.resultId = resultId;
         this.resultCreatorId = resultCreatorId;
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.operatorType = operatorType;
         this.resultNumber = resultNumber;
-        this.userName = userName;
+        this.userId = userId;
         this.resultUpdateDate = resultUpdateDate;
     }
 
-    public Result(int resultCreatorId, double firstNumber, double secondNumber, String operatorType, double resultNumber, String userName, Timestamp resultUpdateDate) {
+    public Result(int resultCreatorId, double firstNumber, double secondNumber, String operatorType, double resultNumber, int userId, Timestamp resultUpdateDate) {
         this.resultCreatorId = resultCreatorId;
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.operatorType = operatorType;
         this.resultNumber = resultNumber;
-        this.userName = userName;
+        this.userId = userId;
         this.resultUpdateDate = resultUpdateDate;
     }
 
-    public Result(double firstNumber, double secondNumber, String operatorType, String userName) {
+    public Result(double firstNumber, double secondNumber, String operatorType, int userId) {
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.operatorType = operatorType;
-        this.userName = userName;
+        this.userId = userId;
     }
 
-    public Result(double firstNumber, double secondNumber, String operatorType, double resultNumber, String userName) {
+    public Result(double firstNumber, double secondNumber, String operatorType, double resultNumber, int userId) {
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.operatorType = operatorType;
         this.resultNumber = resultNumber;
-        this.userName = userName;
+        this.userId = userId;
     }
 
     public double getFirstNumber() {
@@ -84,12 +84,12 @@ public class Result {
         this.resultNumber = resultNumber;
     }
 
-    public String getUserName() {
-        return userName;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getResultId() {

@@ -25,9 +25,9 @@ public class InMemoryResultsStorage {
         results.add(result);
     }
 
-    public ArrayList<Result> getAll(String username) {
+    public ArrayList<Result> getAll(int userId) {
         ArrayList<Result> selectedResult = results.stream()
-                .filter(result -> result.getUserName() == username)
+                .filter(result -> result.getUserId() == userId)
                 .collect(Collectors.toCollection(ArrayList::new));
         return selectedResult;
     }

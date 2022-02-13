@@ -1,10 +1,10 @@
-package by.tms.storage;
+package by.tms.dao;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.HashMap;
 
-public class InMySQLUserRoleRepository {
+public class InMySQLUserRoleDAO {
     final String url = "jdbc:mysql://localhost:3306/calculatordb?userUnicode=true&serverTimezone=UTC";
     final String username = "root";
     final String password = "admin";

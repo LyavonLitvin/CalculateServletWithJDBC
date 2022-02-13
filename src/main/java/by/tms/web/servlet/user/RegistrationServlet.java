@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import by.tms.entity.User;
-import by.tms.service.InMemoryUsersStorageService;
+import by.tms.service.UserService;
 import by.tms.web.servlet.Constants;
 
 //registration?name=leo&username=leo&password=leo
@@ -22,14 +22,14 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, NullPointerException, ServletException {
-        InMemoryUsersStorageService inMemoryUsersStorageService = new InMemoryUsersStorageService();
+        UserService userService = new UserService();
         HttpSession session = req.getSession();
         String name = req.getParameter("name");
         String userName = req.getParameter("username");
         String password = req.getParameter("password");
         session.setAttribute("username", userName);
         User user = new User(name, userName, password, session.getId());
-        if (inMemoryUsersStorageService.addUser(user)) {
+        if (userService.addUser(user)) {
             session.setAttribute("messageErrorRegistration","Registration was successful.");
             req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
         } else {

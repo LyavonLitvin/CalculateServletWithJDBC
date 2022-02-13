@@ -1,6 +1,7 @@
 package by.tms.web.filter.calculator;
 
-import by.tms.service.InMemoryUsersStorageService;
+
+import by.tms.service.UserService;
 import by.tms.validator.CalculatorValidator;
 import by.tms.web.filter.Constants;
 
@@ -15,7 +16,7 @@ import java.io.IOException;
 
 @WebFilter(servletNames = "CalcServlet")
 public class CalculatorFilter extends HttpFilter {
-    InMemoryUsersStorageService inMemoryUsersStorageService = new InMemoryUsersStorageService();
+    UserService userService = new UserService();
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
@@ -26,7 +27,7 @@ public class CalculatorFilter extends HttpFilter {
             if (session.getAttribute("username") == null) {
                 req.setAttribute("messageErrorCalculator", Constants.MSG_ERROR_NOT_AUTHORIZED);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
-            } else if (!inMemoryUsersStorageService.checkByUserLogin((String) session.getAttribute("username"))) {
+            } else if (!userService.checkByUserLogin((String) session.getAttribute("username"))) {
                 req.setAttribute("messageErrorCalculator", Constants.MSG_ERROR_NOT_AUTHORIZED);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
             } else {

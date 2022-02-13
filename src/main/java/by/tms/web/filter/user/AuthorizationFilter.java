@@ -1,6 +1,6 @@
 package by.tms.web.filter.user;
 
-import by.tms.service.InMemoryUsersStorageService;
+import by.tms.service.UserService;
 import by.tms.web.filter.Constants;
 
 import javax.servlet.*;
@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @WebFilter(servletNames = "AuthorizationServlet")
 public class AuthorizationFilter extends HttpFilter {
-    InMemoryUsersStorageService inMemoryUsersStorageService = new InMemoryUsersStorageService();
+    UserService userService = new UserService();
 
     @Override
     public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
@@ -25,10 +25,10 @@ public class AuthorizationFilter extends HttpFilter {
             } else if (userName.isEmpty() || password.isEmpty()) {
                 req.setAttribute("messageErrorAuthorization", Constants.MSG_ERROR_USERNAME_OR_PASSWORD_EMPTY);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
-            } else if (!inMemoryUsersStorageService.checkByUserLogin(userName)) {
+            } else if (!userService.checkByUserLogin(userName)) {
                 req.setAttribute("messageErrorAuthorization", Constants.MSG_ERROR_USER_NOT_FOUND);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
-            } else if (!inMemoryUsersStorageService.checkUserByUsernamePassword(userName, password)) {
+            } else if (!userService.checkUserByUsernamePassword(userName, password)) {
                 req.setAttribute("messageErrorAuthorization", Constants.MSG_ERROR_PASSWORD_IS_INCORRECT);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
             }

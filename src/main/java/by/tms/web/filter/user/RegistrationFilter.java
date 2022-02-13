@@ -1,6 +1,6 @@
 package by.tms.web.filter.user;
 
-import by.tms.service.InMemoryUsersStorageService;
+import by.tms.service.UserService;
 import by.tms.web.filter.Constants;
 
 import javax.servlet.*;
@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @WebFilter(servletNames = "RegistrationServlet")
 public class RegistrationFilter extends HttpFilter {
-    InMemoryUsersStorageService inMemoryUsersStorageService = new InMemoryUsersStorageService();
+    UserService userService = new UserService();
 
     @Override
     public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
@@ -26,7 +26,7 @@ public class RegistrationFilter extends HttpFilter {
             } else if (name.isEmpty() || userName.isEmpty() || password.isEmpty()) {
                 req.setAttribute("messageErrorRegistration", Constants.MSG_ERROR_NAME_USERNAME_PASSWORD_EMPTY);
                 req.getServletContext().getRequestDispatcher(Constants.REGISTRATION_LINK_JSP).forward(req, resp);
-            } else if (inMemoryUsersStorageService.checkByUserLogin(userName)) {
+            } else if (userService.checkByUserLogin(userName)) {
                 req.setAttribute("messageErrorRegistration", Constants.MSG_ERROR_USER_HAS_FOUND);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
             }

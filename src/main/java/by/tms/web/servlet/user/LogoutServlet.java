@@ -1,7 +1,7 @@
 package by.tms.web.servlet.user;
 
-import by.tms.service.CalculatorService;
-import by.tms.service.InMemoryUsersStorageService;
+import by.tms.service.ResultService;
+import by.tms.service.UserService;
 import by.tms.web.servlet.Constants;
 
 import javax.servlet.ServletException;
@@ -17,14 +17,9 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CalculatorService calculatorService = new CalculatorService();
-        InMemoryUsersStorageService inMemoryUsersStorageService = new InMemoryUsersStorageService();
         HttpSession session = req.getSession();
-        calculatorService.deleteResults();
-        System.out.println("Results have deleted successfully");
-        inMemoryUsersStorageService.deleteUsers();
-        System.out.println("Users have deleted successfully");
         session.removeAttribute("username");
+        session.removeAttribute("password");
         session.invalidate();
         // resp.getWriter().println("Logout successfully");
         req.setAttribute("messageLogout", "Logout successfully");

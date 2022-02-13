@@ -23,20 +23,18 @@ public class CalcServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, NullPointerException, ServletException {
-        CalculatorService calculatorService = new CalculatorService();
+        ResultService resultService = new ResultService();
+        UserService userService = new UserService();
         HttpSession session = req.getSession();
         String firstNumberString = req.getParameter("num1");
         String secondNumberString = req.getParameter("num2");
         String operationType = req.getParameter("opType");
         double firstNumber = Double.parseDouble(firstNumberString);
         double secondNumber = Double.parseDouble(secondNumberString);
-        Result result = new Result(firstNumber, secondNumber, operationType, (String) session.getAttribute("username"));
-        calculatorService.calculation(result);
-        req.setAttribute("results",calculatorService.getResults((String) session.getAttribute("username")));
+        Result result = new Result(firstNumber, secondNumber, operationType, userService.getUserId((String) session.getAttribute("username")));
+        resultService.calculation(result);
+        req.setAttribute("results",resultService.getResults(userService.getUserId((String) session.getAttribute("username"))));
         req.setAttribute("messageCalculator", result.toString());
-        for ( Result result1: calculatorService.getResultsToSOUT((String) session.getAttribute("username"))) {
-            System.out.println(result1.toString());
-        }
         req.getServletContext().getRequestDispatcher(Constants.CALCULATOR_LINK_JSP).forward(req, resp);
     }
 }

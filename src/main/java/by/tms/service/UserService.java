@@ -1,15 +1,15 @@
 package by.tms.service;
 
 import by.tms.entity.User;
-import by.tms.storage.InMySQLUserRepository;
+import by.tms.dao.InMySQLUserDAO;
 
 public class UserService {
-    private InMySQLUserRepository inMySQLUserRepository = new InMySQLUserRepository();
+    private InMySQLUserDAO inMySQLUserDAO = new InMySQLUserDAO();
     private User user;
 
     // добавление пользователя в базу данных
     public boolean addUser(User user) {
-        int userResultAddFromBD = inMySQLUserRepository.addUser(user);
+        int userResultAddFromBD = inMySQLUserDAO.addUser(user);
         if (userResultAddFromBD != -1) {
             user.setIdUser(userResultAddFromBD);
             return true;
@@ -50,14 +50,14 @@ public class UserService {
 //        return user.getUserRoleId();
 //    }
 //
-//    // получения id пользователя по логину
-//    public int getIdUser(String login) {
-//        return inMySQLUserRepository.getUserId(login);
-//    }
+    // получения id пользователя по логину
+    public int getUserId(String login) {
+        return inMySQLUserDAO.getUserId(login);
+    }
 
     // проверка логина пользователя
     public boolean checkByUserLogin(String userLogin) {
-        if (inMySQLUserRepository.getUserId(userLogin) != -1) {
+        if (inMySQLUserDAO.getUserId(userLogin) != -1) {
             return true;
         } else {
             return false;
@@ -93,7 +93,7 @@ public class UserService {
 
     // проверка пароля в БД
     public boolean checkUserByUsernamePassword(String inputUserLogin, String inputUserPassword) {
-        if (inMySQLUserRepository.checkUserPassword(inputUserLogin, inputUserPassword)) {
+        if (inMySQLUserDAO.checkUserPassword(inputUserLogin, inputUserPassword)) {
             return true;
         } else {
             return false;
