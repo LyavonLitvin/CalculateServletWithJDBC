@@ -1,7 +1,5 @@
 package by.tms.web.servlet.user;
 
-import by.tms.service.ResultService;
-import by.tms.service.UserService;
 import by.tms.web.servlet.Constants;
 
 import javax.servlet.ServletException;

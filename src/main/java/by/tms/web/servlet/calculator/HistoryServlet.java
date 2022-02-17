@@ -1,8 +1,8 @@
 package by.tms.web.servlet.calculator;
 
-import by.tms.entity.Result;
 import by.tms.service.ResultService;
 import by.tms.service.UserService;
+import by.tms.valuelisthandler.ValueList;
 import by.tms.web.servlet.Constants;
 
 import javax.servlet.ServletException;
@@ -27,4 +27,14 @@ public class HistoryServlet extends HttpServlet {
         req.getServletContext().getRequestDispatcher(Constants.HISTORY_LINK_JSP).forward(req, resp);
     }
 
+    protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        ResultService resultService = new ResultService();
+        UserService userService = new UserService();
+        ValueList results = resultService.getResultsForHandler(userService.getUserId((String) session.getAttribute("username")));
+        req.setAttribute("results", results);
+        req.getServletContext().getRequestDispatcher(Constants.HISTORY_LINK_JSP).forward(req, resp);
+
+
+    }
 }

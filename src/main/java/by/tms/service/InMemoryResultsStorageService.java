@@ -6,11 +6,11 @@ import by.tms.storage.InMemoryResultsStorage;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class CalculatorService {
+public class InMemoryResultsStorageService {
 
     InMemoryResultsStorage inMemoryResultsStorage = InMemoryResultsStorage.getInstance();
 
-    public CalculatorService() {
+    public InMemoryResultsStorageService() {
     }
 
     public Result calculation(Result result) {

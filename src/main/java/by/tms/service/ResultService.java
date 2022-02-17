@@ -2,6 +2,8 @@ package by.tms.service;
 
 import by.tms.entity.Result;
 import by.tms.dao.InMySQLResultDAO;
+import by.tms.valuelisthandler.ValueList;
+import by.tms.valuelisthandler.ValueListHandler;
 
 import java.util.ArrayList;
 
@@ -46,6 +48,12 @@ public class ResultService {
     public ArrayList<String> getResults(int userId) {
         ArrayList<String> listUserResults = inMySQLResultDAO.getListResultsFromUserId(userId);
         return listUserResults;
+    }
+
+    public ValueList getResultsForHandler(int userId) {
+        ValueList valueList = new ValueListHandler();
+        valueList.setList(inMySQLResultDAO.getListResultsFromUserId(userId));
+        return valueList;
     }
 
 //    // получение id задачи по id результата

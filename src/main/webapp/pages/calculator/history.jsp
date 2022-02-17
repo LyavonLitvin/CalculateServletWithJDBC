@@ -50,7 +50,7 @@
     <div class="row justify-content-md-center">
         <div class="col-md-auto">
             <div class="row justify-content-md-center">
-                <form action="/history" method="post">
+                <form action="/history" method="processRequest">
                     <h3>Results history for current user:</h3>
                     <br>
                     <ol>
@@ -69,6 +69,19 @@
                 ${requestScope.messageErrorHistory}
             </div>
         </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
