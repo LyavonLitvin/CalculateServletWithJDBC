@@ -1,5 +1,9 @@
 package by.tms.valuelisthandler;
 
+import by.tms.entity.Result;
+import by.tms.entity.User;
+import by.tms.service.ResultService;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,8 +14,13 @@ public class ValueListHandler implements ValueList {
     public ValueListHandler() {
     }
 
-    protected List list;
+    private Result result;
+    protected List<Result> list;
     protected ListIterator listIterator;
+    private int index;
+    ResultService resultService;
+
+
 
     @Override
     public int getSize() {

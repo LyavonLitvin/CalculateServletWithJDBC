@@ -1,7 +1,7 @@
 package by.tms.service;
 
 import by.tms.entity.Result;
-import by.tms.storage.InMemoryResultsStorage;
+import by.tms.dao.inmemory.InMemoryResultsStorage;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

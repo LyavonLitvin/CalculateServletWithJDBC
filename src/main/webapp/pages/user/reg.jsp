@@ -70,6 +70,18 @@
                     <label><input type="text" name="password" placeholder="Password" required> Password</label>
                 </div>
                 <br>
+                <div class="row justify-content-md-center">
+                    <label><input type="number" name="roleId" placeholder="RoleId" required> RoleId (1 - for user, 2 - for admin)</label>
+                </div>
+                <br>
+                <div class="row justify-content-md-center">
+                    <label><input type="text" name="email" placeholder="@mail" required> @mail</label>
+                </div>
+                <br>
+                <div class="row justify-content-md-center">
+                    <label><input type="text" name="secretQuestion" placeholder="Secret question" required> Secret question</label>
+                </div>
+                <br>
                 <div class="row justify-context-md-center">
                     <button>Submit</button>
                 </div>

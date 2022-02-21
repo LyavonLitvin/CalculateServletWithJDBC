@@ -26,15 +26,6 @@ public class User {
         this.sessionID = sessionID;
     }
 
-    public User(int userRoleId, String name, String login, String password, String email, String secretQuestion, Timestamp userUpdateDate) {
-        this.userRoleId = userRoleId;
-        this.name = name;
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.secretQuestion = secretQuestion;
-        this.userUpdateDate = userUpdateDate;
-    }
     public User(int idUser, int userRoleId, String name, String login, String password, String email, String secretQuestion, Timestamp userUpdateDate) {
         this.idUser = idUser;
         this.userRoleId = userRoleId;
@@ -45,7 +36,18 @@ public class User {
         this.secretQuestion = secretQuestion;
         this.userUpdateDate = userUpdateDate;
     }
-    public User(int idUser, int userRoleId, String name, String login, String password, String email, String secretQuestion, Timestamp userUpdateDate, String sessionID) {
+
+    public User(int userRoleId, String name, String login, String password, String email, String secretQuestion) {
+        this.userRoleId = userRoleId;
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.secretQuestion = secretQuestion;
+        this.userUpdateDate = Timestamp.valueOf(LocalDateTime.now());
+    }
+
+    public User(int idUser, int userRoleId, String name, String login, String password, String email, String secretQuestion) {
         this.idUser = idUser;
         this.userRoleId = userRoleId;
         this.name = name;
@@ -53,22 +55,33 @@ public class User {
         this.password = password;
         this.email = email;
         this.secretQuestion = secretQuestion;
-        this.userUpdateDate = userUpdateDate;
-        this.sessionID = sessionID;
+        this.userUpdateDate = Timestamp.valueOf(LocalDateTime.now());
     }
 
-    public User(String name, String username, String password) {
-        this.name = name;
-        this.login = username;
-        this.password = password;
-    }
-
-    public User(String name, String login, String password, String sessionId) {
+    public User(int idUser, int userRoleId, String name, String login, String password, String email, String secretQuestion, String sessionID) {
+        this.idUser = idUser;
+        this.userRoleId = userRoleId;
         this.name = name;
         this.login = login;
         this.password = password;
-        this.sessionID = sessionId;
+        this.email = email;
+        this.secretQuestion = secretQuestion;
+        this.userUpdateDate = Timestamp.valueOf(LocalDateTime.now());
+        this.sessionID = sessionID;
     }
+
+//    public User(String name, String username, String password) {
+//        this.name = name;
+//        this.login = username;
+//        this.password = password;
+//    }
+//
+//    public User(String name, String login, String password, String sessionId) {
+//        this.name = name;
+//        this.login = login;
+//        this.password = password;
+//        this.sessionID = sessionId;
+//    }
 
     public User(String sessionId) {
         this.sessionID = sessionId;

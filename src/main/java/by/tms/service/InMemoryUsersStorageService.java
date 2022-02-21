@@ -1,7 +1,7 @@
 package by.tms.service;
 
 import by.tms.entity.User;
-import by.tms.storage.InMemoryUsersStorage;
+import by.tms.dao.inmemory.InMemoryUsersStorage;
 
 import java.util.ArrayList;
 

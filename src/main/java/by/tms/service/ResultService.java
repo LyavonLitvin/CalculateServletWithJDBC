@@ -1,14 +1,14 @@
 package by.tms.service;
 
 import by.tms.entity.Result;
-import by.tms.dao.InMySQLResultDAO;
+import by.tms.dao.jdbc.InMySQLResultDAO;
 import by.tms.valuelisthandler.ValueList;
 import by.tms.valuelisthandler.ValueListHandler;
 
 import java.util.ArrayList;
 
 public class ResultService {
-    private InMySQLResultDAO inMySQLResultDAO = new InMySQLResultDAO();
+    private InMySQLResultDAO inMySQLResultDAO = InMySQLResultDAO.getInstance();
     private Result result;
 
     public Result calculation(Result result) {

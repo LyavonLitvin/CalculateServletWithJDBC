@@ -1,5 +1,8 @@
 package by.tms.web.servlet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,8 +12,11 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = Constants.HOME_SERVLET_LINK, name = "HomeServlet")
 public class HomeServlet extends HttpServlet {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("Go to index page");
         req.getServletContext().getRequestDispatcher(Constants.INDEX_LINK_JSP).forward(req, resp);
     }
 }

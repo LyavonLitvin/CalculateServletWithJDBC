@@ -1,15 +1,27 @@
-package by.tms.dao;
+package by.tms.dao.jdbc;
 
 
 
 import by.tms.entity.User;
 
-import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class InMySQLUserDAO {
+
+    private static InMySQLUserDAO instance;
+
+    private InMySQLUserDAO() {
+    }
+
+    public static InMySQLUserDAO getInstance() {
+        if (instance == null) {
+            instance = new InMySQLUserDAO();
+        }
+        return instance;
+    }
+
     final String url = "jdbc:mysql://localhost:3306/calculatordb?useUnicode=true&serverTimezone=UTC";
     final String username = "root";
     final String password = "admin";
@@ -18,10 +30,9 @@ public class InMySQLUserDAO {
     // запрос в базу данных на добавление пользователя
     public int addUser(User user) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("insert into users (user_role_id, user_name, user_login, user_password, user_email," +
-                        " user_secret_qestion, user_date_update) values (?,?,?,?,?,?,?)");
+                PreparedStatement preparedStatement = connection.prepareStatement("insert into users (users.user_role_id, users.user_name, users.user_login, users.user_password, users.user_email," +
+                        " users.user_secret_question, users.user_date_update) values (?,?,?,?,?,?,?)");
                 preparedStatement.setInt(1, user.getUserRoleId());
                 preparedStatement.setString(2, user.getName());
                 preparedStatement.setString(3, user.getLogin());
@@ -31,7 +42,7 @@ public class InMySQLUserDAO {
                 preparedStatement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
                 preparedStatement.execute();
             }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -46,7 +57,6 @@ public class InMySQLUserDAO {
     // запрос в базу данных на обновление пользователя
     public int updateUser(User user) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("update users set user_role_id = ?, user_name = ?, user_password = ?, user_email = ?," +
                         " user_secret_question = ?, user_date_update =? where user_id = ?;");
@@ -59,7 +69,7 @@ public class InMySQLUserDAO {
                 preparedStatement.setString(3, user.getLogin());
                 preparedStatement.execute();
             }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -74,7 +84,6 @@ public class InMySQLUserDAO {
     // запрос в базу данных на обновление пароля пользователя по id пользователя
     public int updateUserPassword(int userId, String newUserPassword) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("update users set user_password = ?, user_date_update = ? where user_id = ?;");
                 preparedStatement.setString(1, newUserPassword);
@@ -82,7 +91,7 @@ public class InMySQLUserDAO {
                 preparedStatement.setInt(3, userId);
                 preparedStatement.execute();
             }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -97,13 +106,12 @@ public class InMySQLUserDAO {
     // запрос в базу данных на удаление пользователя по id пользователя
     public boolean deleteUser(int idUser) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("delete from users where user_id = ?");
                 preparedStatement.setInt(1, idUser);
                 preparedStatement.execute();
             }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -118,7 +126,6 @@ public class InMySQLUserDAO {
     // запрос в базу данных на получения id пользователя по логину пользователя
     public int getUserId(User user) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select users.user_id from users where user_login = ?");
                 preparedStatement.setString(1, user.getLogin());
@@ -128,7 +135,7 @@ public class InMySQLUserDAO {
                     return id;
                 }
             }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return -1;
@@ -137,7 +144,6 @@ public class InMySQLUserDAO {
     // запрос в базу данных на получения id пользователя по логину пользователя
     public int getUserId(String login) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select users.user_id from users where user_login = ?");
                 preparedStatement.setString(1, login);
@@ -147,7 +153,7 @@ public class InMySQLUserDAO {
                     return id;
                 }
             }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return -1;
@@ -156,7 +162,6 @@ public class InMySQLUserDAO {
     // запрос в базу данных на получения id пользователя по id пользователя
     public int getUserId(int userId) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select users.user_id from users where user_id = ?");
                 preparedStatement.setInt(1, userId);
@@ -166,7 +171,7 @@ public class InMySQLUserDAO {
                     return id;
                 }
             }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return -1;
@@ -175,7 +180,6 @@ public class InMySQLUserDAO {
     // запрос в базу данных на проверку роли пользователя по id пользователя и по id роли
     public boolean checkUserRole(String userLogin, int userRoleId) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select user_login, user_role_id from users where user_id = ?;");
                 preparedStatement.setString(1, userLogin);
@@ -187,7 +191,7 @@ public class InMySQLUserDAO {
                         return true;
                 }
             }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -196,7 +200,6 @@ public class InMySQLUserDAO {
     // запрос в базу данных на проверку логина и пароля
     public boolean checkUserPassword(String tempLogin, String tempPassword) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select user_login, user_password from users where user_login = ?");
                 preparedStatement.setString(1, tempLogin);
@@ -208,7 +211,7 @@ public class InMySQLUserDAO {
                         return true;
                 }
             }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -219,7 +222,6 @@ public class InMySQLUserDAO {
         String userInfo = "";
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("" +
                         "select users.user_id, user_roles.user_role, users.user_name, users.user_login, users.user_password, user_email, user_secret_question, user_date_update from users " +
@@ -237,7 +239,7 @@ public class InMySQLUserDAO {
                             ", дата последнего обновления карточки - " + resultSet.getDate(8);
                 }
             }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return userInfo;
@@ -254,7 +256,6 @@ public class InMySQLUserDAO {
         String tempUserSecretQestion = "";
         Timestamp tempUserDateUpdate = null;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("" +
                         "select user_id, user_role_id, user_name, user_login, user_password, user_phone_number, user_email, user_secret_question, user_date_update from users " +
@@ -272,7 +273,7 @@ public class InMySQLUserDAO {
                     tempUserDateUpdate = resultSet.getTimestamp(8);
                 }
             }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return new User(tempIdUser, tempIdUserRole, tempUserName, tempIdUserLogin, tempIdUserPassword, tempUserEmail, tempUserSecretQestion, tempUserDateUpdate);
@@ -283,7 +284,6 @@ public class InMySQLUserDAO {
         ArrayList<String> listUsersInfo = new ArrayList<>();
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("" +
                         "select user_id, user_roles.user_role, user_name, user_login, user_password, user_email, user_secret_question, user_date_update from users " +
@@ -300,7 +300,7 @@ public class InMySQLUserDAO {
                             ", дата последнего обновления карточки - " + resultSet.getDate(8));
                 }
             }
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return listUsersInfo;

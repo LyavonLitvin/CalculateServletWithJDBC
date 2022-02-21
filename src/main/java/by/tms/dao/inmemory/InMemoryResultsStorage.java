@@ -1,4 +1,4 @@
-package by.tms.storage;
+package by.tms.dao.inmemory;
 
 import by.tms.entity.Result;
 

@@ -1,10 +1,10 @@
 package by.tms.service;
 
 import by.tms.entity.User;
-import by.tms.dao.InMySQLUserDAO;
+import by.tms.dao.jdbc.InMySQLUserDAO;
 
 public class UserService {
-    private InMySQLUserDAO inMySQLUserDAO = new InMySQLUserDAO();
+    private InMySQLUserDAO inMySQLUserDAO = InMySQLUserDAO.getInstance();
     private User user;
 
     // добавление пользователя в базу данных

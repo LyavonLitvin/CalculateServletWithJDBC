@@ -27,14 +27,17 @@ public class RegistrationServlet extends HttpServlet {
         String name = req.getParameter("name");
         String userName = req.getParameter("username");
         String password = req.getParameter("password");
+        int roleId = req.getIntHeader("roleId");
+        String email = req.getParameter("email");
+        String secretQuestion = req.getParameter("secretQuestion");
         session.setAttribute("username", userName);
-        User user = new User(name, userName, password, session.getId());
+        User user = new User(roleId,name,userName,password,email,secretQuestion);
         if (userService.addUser(user)) {
             session.setAttribute("messageErrorRegistration","Registration was successful.");
             req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
         } else {
             session.setAttribute("messageErrorRegistration","Error. User not created.");
-            req.getServletContext().getRequestDispatcher(Constants.INDEX_LINK_JSP).forward(req, resp);
+            req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
         }
     }
 }

@@ -1,6 +1,6 @@
 package by.tms.service;
 
-import by.tms.dao.InMySQLUserRoleDAO;
+import by.tms.dao.jdbc.InMySQLUserRoleDAO;
 
 import java.util.HashMap;
 
