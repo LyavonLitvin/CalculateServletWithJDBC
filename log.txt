@@ -1,0 +1,17 @@
+Using CATALINA_BASE:   "C:\Users\User\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\9f5adced-bfa0-4c7d-be9f-c33eac739358"
+Using CATALINA_HOME:   "D:\TomCat\apache-tomcat-9.0.56"
+Using CATALINA_TMPDIR: "D:\TomCat\apache-tomcat-9.0.56\temp"
+Using JRE_HOME:        "C:\Java\jdk-11.0.12"
+Using CLASSPATH:       "D:\TomCat\apache-tomcat-9.0.56\bin\bootstrap.jar;D:\TomCat\apache-tomcat-9.0.56\bin\tomcat-juli.jar"
+Using CATALINA_OPTS:   ""
+NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+Connected to server
+D:/JavaStuding/CalculateServlet/src/main/resources/log4j.properties
+Using CATALINA_BASE:   "C:\Users\User\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\9f5adced-bfa0-4c7d-be9f-c33eac739358"
+Using CATALINA_HOME:   "D:\TomCat\apache-tomcat-9.0.56"
+Using CATALINA_TMPDIR: "D:\TomCat\apache-tomcat-9.0.56\temp"
+Using JRE_HOME:        "C:\Java\jdk-11.0.12"
+Using CLASSPATH:       "D:\TomCat\apache-tomcat-9.0.56\bin\bootstrap.jar;D:\TomCat\apache-tomcat-9.0.56\bin\tomcat-juli.jar"
+Using CATALINA_OPTS:   ""
+NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+Disconnected from server
