@@ -2,10 +2,15 @@ package by.tms.service;
 
 import by.tms.entity.User;
 import by.tms.dao.inmemory.InMemoryUsersStorage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
 public class InMemoryUsersStorageService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     InMemoryUsersStorage inMemoryUsersStorage = InMemoryUsersStorage.getInstance();
 
     public boolean addUser(User user) {

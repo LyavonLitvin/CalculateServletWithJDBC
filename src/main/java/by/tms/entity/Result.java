@@ -10,30 +10,28 @@ public class Result {
     private double secondNumber;
     private String operatorType;
     private double resultNumber;
-    private int userId;
     private Timestamp resultUpdateDate;
 
     public Result() {
     }
 
-    public Result(int resultId, int resultCreatorId, double firstNumber, double secondNumber, String operatorType, double resultNumber, int userId, Timestamp resultUpdateDate) {
+
+    public Result(int resultId, int resultCreatorId, double firstNumber, double secondNumber, String operatorType, double resultNumber, Timestamp resultUpdateDate) {
         this.resultId = resultId;
         this.resultCreatorId = resultCreatorId;
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.operatorType = operatorType;
         this.resultNumber = resultNumber;
-        this.userId = userId;
         this.resultUpdateDate = resultUpdateDate;
     }
 
-    public Result(int resultCreatorId, double firstNumber, double secondNumber, String operatorType, double resultNumber, int userId, Timestamp resultUpdateDate) {
+    public Result(int resultCreatorId, double firstNumber, double secondNumber, String operatorType, double resultNumber, Timestamp resultUpdateDate) {
         this.resultCreatorId = resultCreatorId;
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.operatorType = operatorType;
         this.resultNumber = resultNumber;
-        this.userId = userId;
         this.resultUpdateDate = resultUpdateDate;
     }
 
@@ -41,7 +39,7 @@ public class Result {
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.operatorType = operatorType;
-        this.userId = userId;
+        this.resultCreatorId = userId;
     }
 
     public Result(double firstNumber, double secondNumber, String operatorType, double resultNumber, int userId) {
@@ -49,7 +47,7 @@ public class Result {
         this.secondNumber = secondNumber;
         this.operatorType = operatorType;
         this.resultNumber = resultNumber;
-        this.userId = userId;
+        this.resultCreatorId = userId;
     }
 
     public double getFirstNumber() {
@@ -82,14 +80,6 @@ public class Result {
 
     public void setResultNumber(double resultNumber) {
         this.resultNumber = resultNumber;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public int getResultId() {

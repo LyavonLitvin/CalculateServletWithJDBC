@@ -1,9 +1,14 @@
 package by.tms.dao.jdbc;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 import java.util.HashMap;
 
 public class InMySQLUserRoleDAO {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
     final String url = "jdbc:mysql://localhost:3306/calculatordb?userUnicode=true&serverTimezone=UTC";
@@ -12,6 +17,7 @@ public class InMySQLUserRoleDAO {
 
     // запрос в базу данных на получения списка ролей пользователей
     public HashMap<Integer, String> getHashMapUserRoles() {
+        logger.info("get user info");
         HashMap<Integer, String> hashMapUserRoles = new HashMap<>();
         try {
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -29,6 +35,7 @@ public class InMySQLUserRoleDAO {
 
     // запрос в базу данных на получения id роли пользователя
     public int getUserRoleByUserRoleId(int userRoleId) {
+        logger.info("get user_role by user_role_id");
         try {
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select user_roles.user_role_id from user_roles where user_role_id = ?");
@@ -46,6 +53,7 @@ public class InMySQLUserRoleDAO {
 
     // запрос в базу данных на получение id роли по логину пользователя
     public int getUserRoleByUserLogin(String userLogin) {
+        logger.info("get user_role by user_login");
         try {
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select user_role_id from users where user_login = ?;");
@@ -65,6 +73,7 @@ public class InMySQLUserRoleDAO {
 
     // запрос в базу данных на получение id роли по id пользователя
     public int getUserRoleIdByUserId(int userId) {
+        logger.info("get user_role by user_id");
         try {
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select user_role_id from users where user_id = ?;");
@@ -84,6 +93,7 @@ public class InMySQLUserRoleDAO {
 
     // запрос в базу данных на получения названия роли по id роли
     public String getRoleNameFromUserRoleId(int userRoleId) {
+        logger.info("get role_name by user_role_id");
         try {
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select user_role from user_roles where user_role_id = ?;");

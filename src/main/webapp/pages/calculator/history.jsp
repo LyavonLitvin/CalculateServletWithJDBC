@@ -55,7 +55,7 @@
                     <br>
                     <ol>
                         <c:forEach var="result" items="${results}">
-                            <li><h3> calculation: ${result.toString()}/></h3></li>
+                            <li><h3> calculation: ${result.toString()}</h3></li>
                             <hr>
                         </c:forEach>
                     </ol>

@@ -2,8 +2,13 @@ package by.tms.service;
 
 import by.tms.entity.User;
 import by.tms.dao.jdbc.InMySQLUserDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private InMySQLUserDAO inMySQLUserDAO = InMySQLUserDAO.getInstance();
     private User user;
 

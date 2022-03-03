@@ -1,6 +1,8 @@
 package by.tms.web.servlet.user;
 
 import by.tms.web.servlet.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +15,11 @@ import java.io.IOException;
 @WebServlet(urlPatterns = Constants.AUTHORIZATION_SERVLET_LINK, name = "AuthorizationServlet")
 public class AuthorizationServlet extends HttpServlet {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("Go to authorization page");
         req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
     }
 

@@ -1,11 +1,15 @@
 package by.tms.service;
 
 import by.tms.dao.jdbc.InMySQLUserRoleDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
 
 public class UserRoleService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private InMySQLUserRoleDAO inMySQLUserRoleDAO = new InMySQLUserRoleDAO();
 

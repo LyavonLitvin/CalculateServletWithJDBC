@@ -2,11 +2,15 @@ package by.tms.service;
 
 import by.tms.entity.Result;
 import by.tms.dao.inmemory.InMemoryResultsStorage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class InMemoryResultsStorageService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     InMemoryResultsStorage inMemoryResultsStorage = InMemoryResultsStorage.getInstance();
 

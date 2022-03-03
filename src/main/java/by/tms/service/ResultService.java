@@ -2,12 +2,17 @@ package by.tms.service;
 
 import by.tms.entity.Result;
 import by.tms.dao.jdbc.InMySQLResultDAO;
-import by.tms.valuelisthandler.ValueList;
-import by.tms.valuelisthandler.ValueListHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+//import by.tms.valuelisthandler.ValueListIterator;
+//import by.tms.valuelisthandler.ValueListHandler;
 
 import java.util.ArrayList;
 
 public class ResultService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private InMySQLResultDAO inMySQLResultDAO = InMySQLResultDAO.getInstance();
     private Result result;
 
@@ -45,16 +50,16 @@ public class ResultService {
     }
 
     // получение списка результатов
-    public ArrayList<String> getResults(int userId) {
-        ArrayList<String> listUserResults = inMySQLResultDAO.getListResultsFromUserId(userId);
+    public ArrayList<Result> getResults(int userId) {
+        ArrayList<Result> listUserResults = inMySQLResultDAO.getListResultsFromUserId(userId);
         return listUserResults;
     }
 
-    public ValueList getResultsForHandler(int userId) {
-        ValueList valueList = new ValueListHandler();
-        valueList.setList(inMySQLResultDAO.getListResultsFromUserId(userId));
-        return valueList;
-    }
+//    public ValueListIterator getResultsForHandler(int userId) {
+//        ValueListIterator valueListIterator = new ValueListHandler();
+//        valueListIterator.setList(inMySQLResultDAO.getListResultsFromUserId(userId));
+//        return valueListIterator;
+//    }
 
 //    // получение id задачи по id результата
 //    public int getResultId(int resultId) {

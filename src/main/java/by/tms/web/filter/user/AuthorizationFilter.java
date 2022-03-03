@@ -2,6 +2,8 @@ package by.tms.web.filter.user;
 
 import by.tms.service.UserService;
 import by.tms.web.filter.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -13,6 +15,7 @@ import java.io.IOException;
 @WebFilter(servletNames = "AuthorizationServlet")
 public class AuthorizationFilter extends HttpFilter {
     UserService userService = new UserService();
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
@@ -21,15 +24,19 @@ public class AuthorizationFilter extends HttpFilter {
             String password = req.getParameter("password");
             if (userName == null || password == null) {
                 req.setAttribute("messageErrorAuthorization", Constants.MSG_ERROR_USERNAME_OR_PASSWORD_NULL);
+                logger.info(Constants.MSG_ERROR_USERNAME_OR_PASSWORD_NULL);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
             } else if (userName.isEmpty() || password.isEmpty()) {
                 req.setAttribute("messageErrorAuthorization", Constants.MSG_ERROR_USERNAME_OR_PASSWORD_EMPTY);
+                logger.info(Constants.MSG_ERROR_USERNAME_OR_PASSWORD_EMPTY);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
             } else if (!userService.checkByUserLogin(userName)) {
                 req.setAttribute("messageErrorAuthorization", Constants.MSG_ERROR_USER_NOT_FOUND);
+                logger.info(Constants.MSG_ERROR_USER_NOT_FOUND);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
             } else if (!userService.checkUserByUsernamePassword(userName, password)) {
                 req.setAttribute("messageErrorAuthorization", Constants.MSG_ERROR_PASSWORD_IS_INCORRECT);
+                logger.info(Constants.MSG_ERROR_PASSWORD_IS_INCORRECT);
                 req.getServletContext().getRequestDispatcher(Constants.AUTHORIZATION_LINK_JSP).forward(req, resp);
             }
         }
