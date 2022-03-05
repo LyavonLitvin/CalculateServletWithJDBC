@@ -70,10 +70,10 @@
                     <label><input type="text" name="password" placeholder="Password" required> Password</label>
                 </div>
                 <br>
-                <div class="row justify-content-md-center">
-                    <label><input type="number" name="roleId" placeholder="RoleId" required> RoleId (1 - for user, 2 - for admin)</label>
-                </div>
-                <br>
+<%--                <div class="row justify-content-md-center">--%>
+<%--                    <label><input type="number" name="roleId" placeholder="RoleId" required> RoleId (1 - for user, 2 - for admin)</label>--%>
+<%--                </div>--%>
+<%--                <br>--%>
                 <div class="row justify-content-md-center">
                     <label><input type="text" name="email" placeholder="@mail" required> @mail</label>
                 </div>

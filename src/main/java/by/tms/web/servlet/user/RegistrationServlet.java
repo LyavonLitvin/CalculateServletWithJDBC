@@ -31,7 +31,7 @@ public class RegistrationServlet extends HttpServlet {
         String name = req.getParameter("name");
         String userName = req.getParameter("username");
         String password = req.getParameter("password");
-        int roleId = req.getIntHeader("roleId");
+        int roleId = 1;
         String email = req.getParameter("email");
         String secretQuestion = req.getParameter("secretQuestion");
         session.setAttribute("username", userName);

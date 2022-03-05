@@ -13,7 +13,7 @@ public class User {
     private String email;
     private String secretQuestion;
     private Timestamp userUpdateDate;
-    private String sessionID;
+ //   private String sessionID;
 
     public User(int userRoleId, String name, String login, String password, String email, String secretQuestion, Timestamp userUpdateDate, String sessionID) {
         this.userRoleId = userRoleId;
@@ -23,7 +23,7 @@ public class User {
         this.email = email;
         this.secretQuestion = secretQuestion;
         this.userUpdateDate = userUpdateDate;
-        this.sessionID = sessionID;
+       // this.sessionID = sessionID;
     }
 
     public User(int idUser, int userRoleId, String name, String login, String password, String email, String secretQuestion, Timestamp userUpdateDate) {
@@ -34,7 +34,7 @@ public class User {
         this.password = password;
         this.email = email;
         this.secretQuestion = secretQuestion;
-        this.userUpdateDate = userUpdateDate;
+        this.userUpdateDate = Timestamp.valueOf(LocalDateTime.now());
     }
 
     public User(int userRoleId, String name, String login, String password, String email, String secretQuestion) {
@@ -67,7 +67,7 @@ public class User {
         this.email = email;
         this.secretQuestion = secretQuestion;
         this.userUpdateDate = Timestamp.valueOf(LocalDateTime.now());
-        this.sessionID = sessionID;
+      //  this.sessionID = sessionID;
     }
 
 //    public User(String name, String username, String password) {
@@ -83,17 +83,6 @@ public class User {
 //        this.sessionID = sessionId;
 //    }
 
-    public User(String sessionId) {
-        this.sessionID = sessionId;
-    }
-
-    public String getSessionID() {
-        return sessionID;
-    }
-
-    public void setSessionID(String sessionID) {
-        this.sessionID = sessionID;
-    }
 
     public String getName() {
         return name;
@@ -165,7 +154,6 @@ public class User {
                 "name='" + name + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", sessionID='" + sessionID + '\'' +
                 '}';
     }
 }
